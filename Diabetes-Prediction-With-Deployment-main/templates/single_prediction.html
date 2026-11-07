@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resultado de la predicción</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='styles.css') }}"
+    >
+</head>
+
+<body>
+    <main class="page-wrapper">
+        <section class="main-card result-page-card">
+
+            <header class="page-header">
+                <div class="brand-icon result-icon">
+                    ✓
+                </div>
+
+                <p class="eyebrow">
+                    Machine Learning · Resultado
+                </p>
+
+                <h1>Resultado de la evaluación</h1>
+
+                <p class="intro">
+                    El modelo procesó los datos introducidos y generó
+                    el siguiente resultado.
+                </p>
+            </header>
+
+            <section class="prediction-result" aria-live="polite">
+                {% if result == "Diabetic" %}
+                    <div class="result-status result-status-risk">
+                        <span class="status-icon">!</span>
+
+                        <div>
+                            <p class="result-label">
+                                Resultado del modelo
+                            </p>
+
+                            <h2>Posible riesgo de diabetes</h2>
+
+                            <p class="result-message">
+                                El modelo clasificó los datos introducidos
+                                como compatibles con la categoría de diabetes.
+                            </p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="result-status result-status-normal">
+                        <span class="status-icon">✓</span>
+
+                        <div>
+                            <p class="result-label">
+                                Resultado del modelo
+                            </p>
+
+                            <h2>Sin indicios según el modelo</h2>
+
+                            <p class="result-message">
+                                El modelo clasificó los datos introducidos
+                                como no compatibles con la categoría de diabetes.
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+
+            <div class="result-actions">
+                <a
+                    href="{{ url_for('predict_datapoint') }}"
+                    class="submit-button result-button"
+                >
+                    <span>Realizar otra evaluación</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <div class="notice result-notice">
+                <strong>Importante:</strong>
+                este resultado es una estimación experimental del modelo.
+                No constituye un diagnóstico médico ni sustituye la consulta
+                con un profesional de la salud.
+            </div>
+
+            <footer class="page-footer">
+                <p>
+                    La clasificación automática no reemplaza una prueba clínica.
+                </p>
+            </footer>
+
+        </section>
+    </main>
+</body>
+</html>
